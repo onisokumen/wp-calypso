@@ -10,6 +10,7 @@ import startsWith from 'lodash/startsWith';
  * Internal dependencies
  */
 import config from 'config';
+import addQueryArgs from 'lib/route/add-query-args';
 
 /**
  * Check if a URL is located outside of Calypso.
@@ -99,4 +100,6 @@ export default {
 	addSchemeIfMissing,
 	setUrlScheme,
 	urlToSlug,
+	// [TODO]: Move lib/route/add-query-args contents here
+	addQueryArgs
 };
