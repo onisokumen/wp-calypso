@@ -37,15 +37,16 @@ class SharingConnection extends Component {
 		showDisconnect: false,
 	};
 
-	constructor( props ) {
-		super( props );
+	toggleSitewideConnection = ( event ) => {
+		if ( ! this.state.isSavingSitewide ) {
+			const isNowSitewide = event.target.checked;
 
-		this.state = {
-			isSavingSitewide: false
-		};
-
-		this.toggleSitewideConnection = this.toggleSitewideConnection.bind( this );
-	}
+			this.setState( { isSavingSitewide: true } );
+			this.props.onToggleSitewideConnection( this.props.connection, isNowSitewide );
+			this.props.recordGoogleEvent( 'Sharing', 'Clicked Connection Available to All Users Checkbox',
+				this.props.service.ID, isNowSitewide ? 1 : 0 );
+		}
+	};
 
 	componentDidUpdate( prevProps ) {
 		if ( this.state.isSavingSitewide && this.props.connection.shared !== prevProps.connection.shared ) {
@@ -101,17 +102,6 @@ class SharingConnection extends Component {
 					{ this.props.translate( 'Disconnect' ) }
 				</a>
 			);
-		}
-	}
-
-	toggleSitewideConnection( event ) {
-		if ( ! this.state.isSavingSitewide ) {
-			const isNowSitewide = event.target.checked;
-
-			this.setState( { isSavingSitewide: true } );
-			this.props.onToggleSitewideConnection( this.props.connection, isNowSitewide );
-			this.props.recordGoogleEvent( 'Sharing', 'Clicked Connection Available to All Users Checkbox',
-				this.props.service.ID, isNowSitewide ? 1 : 0 );
 		}
 	}
 

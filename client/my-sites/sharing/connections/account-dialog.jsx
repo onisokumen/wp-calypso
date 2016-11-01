@@ -29,15 +29,24 @@ class AccountDialog extends Component {
 		service: Object.freeze( {} ),
 	};
 
+	onClose = ( action ) => {
+		const accountToConnect = this.getAccountToConnect();
+
+		if ( 'connect' === action && accountToConnect ) {
+			this.props.onAccountSelected( this.props.service, accountToConnect.keyringConnectionId, accountToConnect.ID );
+		} else {
+			this.props.onAccountSelected();
+		}
+	};
+
+	onSelectedAccountChanged = ( account ) => this.setState( { selectedAccount: account } );
+
 	constructor( props ) {
 		super( props );
 
 		this.state = {
 			selectedAccount: null
 		};
-
-		this.onClose = this.onClose.bind( this );
-		this.onSelectedAccountChanged = this.onSelectedAccountChanged.bind( this );
 	}
 
 	componentWillReceiveProps( nextProps ) {
@@ -80,10 +89,6 @@ class AccountDialog extends Component {
 		return selectedAccount && this.props.accounts.some( ( maybeConnectedAccount ) =>
 			maybeConnectedAccount.isConnected && this.areAccountsConflicting( maybeConnectedAccount, selectedAccount )
 		);
-	}
-
-	onSelectedAccountChanged( account ) {
-		this.setState( { selectedAccount: account } );
 	}
 
 	getAccountElements( accounts ) {
@@ -131,16 +136,6 @@ class AccountDialog extends Component {
 			'Select the account you wish to authorize. Note that your posts will be shared to the selected account automatically.', {
 				context: 'Sharing: Publicize connection confirmation'
 			} );
-	}
-
-	onClose( action ) {
-		const accountToConnect = this.getAccountToConnect();
-
-		if ( 'connect' === action && accountToConnect ) {
-			this.props.onAccountSelected( this.props.service, accountToConnect.keyringConnectionId, accountToConnect.ID );
-		} else {
-			this.props.onAccountSelected();
-		}
 	}
 
 	render() {

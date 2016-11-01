@@ -34,11 +34,10 @@ class SharingServiceConnectedAccounts extends Component {
 		onToggleSitewideConnection: () => {},
 	};
 
-	constructor( props ) {
-		super( props );
-
-		this.connectAnother = this.connectAnother.bind( this );
-	}
+	connectAnother = () => {
+		this.props.onAddConnection();
+		this.props.recordGoogleEvent( 'Sharing', 'Clicked Connect Another Account Button', this.props.service.ID );
+	};
 
 	getConnectionElements() {
 		return this.props.connections.map( ( connection ) =>
@@ -63,11 +62,6 @@ class SharingServiceConnectedAccounts extends Component {
 				</a>
 			);
 		}
-	}
-
-	connectAnother() {
-		this.props.onAddConnection();
-		this.props.recordGoogleEvent( 'Sharing', 'Clicked Connect Another Account Button', this.props.service.ID );
 	}
 
 	render() {
