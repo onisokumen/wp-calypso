@@ -5,7 +5,7 @@ import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
 import reactTapEventPlugin from 'react-tap-event-plugin';
-import { noop } from 'lodash';
+import { identity } from 'lodash';
 
 /**
  * Internal dependencies
@@ -15,7 +15,7 @@ import { LostPassword } from '..';
 
 describe( 'LostPassword', () => {
 	it( 'should render as expected', () => {
-		const wrapper = shallow( <LostPassword className="test__test" translate={ noop } /> );
+		const wrapper = shallow( <LostPassword className="test__test" translate={ identity } /> );
 
 		expect( wrapper ).to.have.className( 'lost-password__container' );
 		expect( wrapper ).to.have.className( 'test__test' );
@@ -29,7 +29,7 @@ describe( 'LostPassword', () => {
 		useFakeDom();
 
 		it( 'should not submit if user login is blank', function() {
-			const wrapper = mount( <LostPassword className="test__test" translate={ noop } /> );
+			const wrapper = mount( <LostPassword className="test__test" translate={ identity } /> );
 
 			wrapper.find( '.lost-password__user-login-input' ).node.value = '';
 			wrapper.find( '.lost-password__user-login-input' ).simulate( 'change' );
@@ -41,7 +41,7 @@ describe( 'LostPassword', () => {
 		} );
 
 		it( 'should be disabled when submit button clicked', function() {
-			const wrapper = mount( <LostPassword className="test__test" translate={ noop } /> );
+			const wrapper = mount( <LostPassword className="test__test" translate={ identity } /> );
 
 			wrapper.find( '.lost-password__user-login-input' ).node.value = 'test';
 			wrapper.find( '.lost-password__user-login-input' ).simulate( 'change' );
