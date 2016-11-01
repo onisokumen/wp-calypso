@@ -4,7 +4,6 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
-import reactTapEventPlugin from 'react-tap-event-plugin';
 import { identity } from 'lodash';
 
 /**
@@ -25,7 +24,6 @@ describe( 'LostPassword', () => {
 	} );
 
 	context( 'events', () => {
-		reactTapEventPlugin();
 		useFakeDom();
 
 		it( 'should not submit if user login is blank', function() {
