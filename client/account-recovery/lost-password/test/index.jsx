@@ -20,22 +20,19 @@ describe( 'LostPassword', () => {
 		expect( wrapper ).to.have.className( 'test__test' );
 		expect( wrapper ).to.have.state( 'isSubmitting' ).to.be.false;
 		expect( wrapper.find( '.lost-password__user-login-input' ).prop( 'disabled' ) ).to.not.be.ok;
-		expect( wrapper.find( '.lost-password__submit-button' ).prop( 'disabled' ) ).to.not.be.ok;
+		expect( wrapper.find( '.lost-password__submit-button' ).prop( 'disabled' ) ).to.be.ok;
 	} );
 
 	context( 'events', () => {
 		useFakeDom();
 
-		it( 'should not submit if user login is blank', function() {
+		it( 'submit button shuold be disabled if user login is blank', function() {
 			const wrapper = mount( <LostPasswordComponent className="test__test" translate={ identity } /> );
 
 			wrapper.find( '.lost-password__user-login-input' ).node.value = '';
 			wrapper.find( '.lost-password__user-login-input' ).simulate( 'change' );
-			wrapper.find( '.lost-password__submit-button' ).simulate( 'click' );
-
-			expect( wrapper ).to.have.state( 'isSubmitting' ).to.be.false;
 			expect( wrapper.find( '.lost-password__user-login-input' ).prop( 'disabled' ) ).to.not.be.ok;
-			expect( wrapper.find( '.lost-password__submit-button' ).prop( 'disabled' ) ).to.not.be.ok;
+			expect( wrapper.find( '.lost-password__submit-button' ).prop( 'disabled' ) ).to.be.ok;
 		} );
 
 		it( 'should be disabled when submit button clicked', function() {

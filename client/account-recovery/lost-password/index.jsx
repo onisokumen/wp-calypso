@@ -2,7 +2,6 @@
  * External dependencies
  */
 import React, { Component } from 'react';
-import { findDOMNode } from 'react-dom';
 import { localize } from 'i18n-calypso';
 import classnames from 'classnames';
 
@@ -28,21 +27,20 @@ export class LostPasswordComponent extends Component {
 	}
 
 	onSubmit = () => {
-		const userLogin = findDOMNode( this.refs.user_login ).value;
-
-		if ( ! userLogin ) {
-			return;
-		}
-
-		this.setState( { isSubmitting: true, userLogin } );
+		this.setState( { isSubmitting: true } );
 
 		//TODO: dispatch an event with userLogin and wait to here back
 	};
 
+	onUserLoginChanged = ( event ) => {
+		this.setState( { userLogin: event.target.value } );
+	}
+
 	render() {
 		const { translate, className } = this.props;
-		const { isSubmitting } = this.state;
+		const { isSubmitting, userLogin } = this.state;
 		const classes = classnames( 'lost-password__container', className );
+		const isPrimaryButtonDisabled = ! userLogin || isSubmitting;
 
 		return (
 			<div className={ classes }>
@@ -83,7 +81,7 @@ export class LostPasswordComponent extends Component {
 
 						<FormInput
 							className="lost-password__user-login-input"
-							ref="user_login"
+							onChange={ this.onUserLoginChanged }
 							disabled={ isSubmitting } />
 					</FormLabel>
 
@@ -94,7 +92,7 @@ export class LostPasswordComponent extends Component {
 					<Button
 						className="lost-password__submit-button"
 						onClick={ this.onSubmit }
-						disabled={ isSubmitting }
+						disabled={ isPrimaryButtonDisabled }
 						primary
 					>
 						{ translate( 'Get New Password' ) }
