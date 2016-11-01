@@ -9,13 +9,16 @@ import classnames from 'classnames';
 /**
  * Internal dependencies
  */
+import PageViewTracker from 'lib/analytics/page-view-tracker';
 import support from 'lib/url/support';
+import Main from 'components/main';
+import DocumentHead from 'components/data/document-head';
 import Card from 'components/card';
 import Button from 'components/button';
 import FormLabel from 'components/forms/form-label';
 import FormInput from 'components/forms/form-text-input';
 
-export class LostPassword extends Component {
+export class LostPasswordComponent extends Component {
 	constructor() {
 		super( ...arguments );
 
@@ -103,4 +106,12 @@ export class LostPassword extends Component {
 	}
 }
 
-export default localize( LostPassword );
+export const LostPassword = localize( LostPasswordComponent );
+
+export const LostPasswordPage = localize( ( { translate, basePath } ) => (
+	<Main>
+		<PageViewTracker path={ basePath } title="Account Recovery > Lost Password" />
+		<DocumentHead title={ translate( 'Lost Password ‹ Account Recovery' ) } />
+		<LostPassword className="account-recovery__container" />
+	</Main>
+) );

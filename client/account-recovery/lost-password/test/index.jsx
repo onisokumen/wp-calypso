@@ -10,11 +10,11 @@ import { identity } from 'lodash';
  * Internal dependencies
  */
 import useFakeDom from 'test/helpers/use-fake-dom';
-import { LostPassword } from '..';
+import { LostPasswordComponent } from '..';
 
 describe( 'LostPassword', () => {
 	it( 'should render as expected', () => {
-		const wrapper = shallow( <LostPassword className="test__test" translate={ identity } /> );
+		const wrapper = shallow( <LostPasswordComponent className="test__test" translate={ identity } /> );
 
 		expect( wrapper ).to.have.className( 'lost-password__container' );
 		expect( wrapper ).to.have.className( 'test__test' );
@@ -27,7 +27,7 @@ describe( 'LostPassword', () => {
 		useFakeDom();
 
 		it( 'should not submit if user login is blank', function() {
-			const wrapper = mount( <LostPassword className="test__test" translate={ identity } /> );
+			const wrapper = mount( <LostPasswordComponent className="test__test" translate={ identity } /> );
 
 			wrapper.find( '.lost-password__user-login-input' ).node.value = '';
 			wrapper.find( '.lost-password__user-login-input' ).simulate( 'change' );
@@ -39,7 +39,7 @@ describe( 'LostPassword', () => {
 		} );
 
 		it( 'should be disabled when submit button clicked', function() {
-			const wrapper = mount( <LostPassword className="test__test" translate={ identity } /> );
+			const wrapper = mount( <LostPasswordComponent className="test__test" translate={ identity } /> );
 
 			wrapper.find( '.lost-password__user-login-input' ).node.value = 'test';
 			wrapper.find( '.lost-password__user-login-input' ).simulate( 'change' );
