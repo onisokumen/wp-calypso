@@ -1,14 +1,9 @@
 /**
- * External dependencies
- */
-import page from 'page';
-
-/**
  * Internal dependencies
  */
-import controller from './controller';
+import { lostPassword } from './controller';
 
-export default function() {
+export default function( router ) {
 	// Main route for account recovery is the lost password page
-	page( '/account-recovery', controller.lostPassword );
+	router( '/account-recovery', lostPassword );
 }

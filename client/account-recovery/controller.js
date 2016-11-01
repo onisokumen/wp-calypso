@@ -8,26 +8,23 @@ import i18n from 'i18n-calypso';
  * Internal dependencies
  */
 import analytics from 'lib/analytics';
-import { renderWithReduxStore } from 'lib/react-helpers';
 import Main from 'components/main';
 import DocumentHead from 'components/data/document-head';
 import LostPassword from 'account-recovery/lost-password';
 
 const ANALYTICS_PAGE_TITLE = 'Account Recovery';
 
-export default {
-	lostPassword( context ) {
-		const basePath = context.path;
+export function lostPassword( context, next ) {
+	const basePath = context.path;
 
-		analytics.pageView.record( basePath, `${ ANALYTICS_PAGE_TITLE } > Lost Password` );
+	analytics.pageView.record( basePath, `${ ANALYTICS_PAGE_TITLE } > Lost Password` );
 
-		renderWithReduxStore(
-			<Main>
-				<DocumentHead title={ i18n.translate( 'Lost Password ‹ Account Recovery' ) } />
-				<LostPassword className="account-recovery__container" />
-			</Main>,
-			document.getElementById( 'primary' ),
-			context.store
-		);
-	},
-};
+	context.primary = (
+		<Main>
+			<DocumentHead title={ i18n.translate( 'Lost Password ‹ Account Recovery' ) } />
+			<LostPassword className="account-recovery__container" />
+		</Main>
+	);
+
+	next();
+}
