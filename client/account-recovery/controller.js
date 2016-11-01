@@ -9,6 +9,7 @@ import i18n from 'i18n-calypso';
  */
 import analytics from 'lib/analytics';
 import { renderWithReduxStore } from 'lib/react-helpers';
+import Main from 'components/main';
 import DocumentHead from 'components/data/document-head';
 import LostPassword from 'account-recovery/lost-password';
 
@@ -21,10 +22,10 @@ export default {
 		analytics.pageView.record( basePath, `${ ANALYTICS_PAGE_TITLE } > Lost Password` );
 
 		renderWithReduxStore(
-			<div>
+			<Main>
 				<DocumentHead title={ i18n.translate( 'Lost Password ‹ Account Recovery' ) } />
 				<LostPassword className="account-recovery__container" />
-			</div>,
+			</Main>,
 			document.getElementById( 'primary' ),
 			context.store
 		);
