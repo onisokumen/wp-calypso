@@ -75,14 +75,14 @@ export class LostPassword extends Component {
 				</p>
 
 				<Card>
-					<FormLabel htmlFor="user_login">{ translate( 'Username or Email' ) }</FormLabel>
+					<FormLabel>
+						{ translate( 'Username or Email' ) }
 
-					<FormInput
-						className="lost-password__user-login-input"
-						ref="user_login"
-						id="user_login"
-						name="user_login"
-						disabled={ isSubmitting } />
+						<FormInput
+							className="lost-password__user-login-input"
+							ref="user_login"
+							disabled={ isSubmitting } />
+					</FormLabel>
 
 					<a href="/account-recovery/username" className="lost-password__forgot-username-link">
 						{ translate( 'Forgot your username?' ) }

@@ -3,6 +3,13 @@
 	font-weight: bold;
 }
 
+.lost-password__user-login-input {
+	//Use a more specific selector so we don't have to use !important to overide any css
+	&.form-text-input {
+		margin-top: 5px;
+	}
+}
+
 .lost-password__instruction-list {
 	margin: 10px 0px 10px 20px;
 }
