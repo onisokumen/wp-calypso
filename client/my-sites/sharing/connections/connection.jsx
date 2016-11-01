@@ -9,7 +9,7 @@ import { localize } from 'i18n-calypso';
 /**
  * Internal dependencies
  */
-import { getCurrentUser } from 'state/current-user/selectors';
+import { getCurrentUserId } from 'state/current-user/selectors';
 import { getSelectedSite } from 'state/ui/selectors';
 import { getUser } from 'state/users/selectors';
 import { recordGoogleEvent } from 'state/analytics/actions';
@@ -82,8 +82,7 @@ class SharingConnection extends Component {
 	}
 
 	getReconnectButton() {
-		if ( this.props.user && 'broken' === this.props.connection.status &&
-			this.props.user.ID === this.props.connection.keyring_connection_user_ID ) {
+		if ( 'broken' === this.props.connection.status && this.props.userId === this.props.connection.keyring_connection_user_ID ) {
 			return (
 				<a onClick={ this.refresh } className="sharing-connection__account-action reconnect">
 					{ this.props.translate( 'Reconnect' ) }
@@ -94,7 +93,7 @@ class SharingConnection extends Component {
 
 	getDisconnectButton() {
 		const userCanDelete = this.props.site.capabilities && this.props.site.capabilities.edit_others_posts ||
-			this.props.connection.user_ID === this.props.user.ID;
+			this.props.connection.user_ID === this.props.userId;
 
 		if ( this.props.showDisconnect && userCanDelete ) {
 			return (
@@ -110,7 +109,7 @@ class SharingConnection extends Component {
 	}
 
 	getConnectionKeyringUserLabel() {
-		if ( this.props.user && this.props.connectionUser && this.props.user.ID !== this.props.connectionUser.ID ) {
+		if ( this.props.connectionUser && this.props.userId !== this.props.connectionUser.ID ) {
 			return (
 				<aside className="sharing-connection__keyring-user">
 					{ this.props.translate( 'Connected by %(username)s', {
@@ -182,7 +181,7 @@ export default connect(
 	( state, { connection } ) => ( {
 		connectionUser: getUser( state, connection.keyring_connection_user_ID ),
 		site: getSelectedSite( state ),
-		user: getCurrentUser( state ),
+		userId: getCurrentUserId( state ),
 	} ),
 	{ recordGoogleEvent },
 )( localize( SharingConnection ) );
