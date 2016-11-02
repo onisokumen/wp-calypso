@@ -23,6 +23,7 @@ export class LostPasswordComponent extends Component {
 
 		this.state = {
 			isSubmitting: false,
+			userLogin: '',
 		};
 	}
 
@@ -82,6 +83,7 @@ export class LostPasswordComponent extends Component {
 						<FormInput
 							className="lost-password__user-login-input"
 							onChange={ this.onUserLoginChanged }
+							value={ userLogin }
 							disabled={ isSubmitting } />
 					</FormLabel>
 
