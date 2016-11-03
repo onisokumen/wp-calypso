@@ -7,11 +7,11 @@ import page from 'page';
 /**
  * Internal dependencies
  */
-import { LostPasswordPage } from 'account-recovery/lost-password';
+import LostPasswordPage from 'account-recovery/lost-password';
 import { getCurrentUser } from 'state/current-user/selectors';
 
 export function lostPassword( context, next ) {
-	context.primary = <LostPasswordPage basePath={ context.path } />;
+	context.primary = <LostPasswordPage basePath={ context.path } className="account-recovery__container" />;
 	next();
 }
 
