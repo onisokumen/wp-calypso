@@ -31,7 +31,7 @@ export class LostPasswordFormComponent extends Component {
 
 	onUserLoginChanged = ( event ) => {
 		this.setState( { userLogin: event.target.value } );
-	}
+	};
 
 	render() {
 		const { translate } = this.props;
