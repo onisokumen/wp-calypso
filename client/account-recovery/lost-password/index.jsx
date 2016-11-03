@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { localize } from 'i18n-calypso';
+import classnames from 'classnames';
 
 /**
  * Internal dependencies
@@ -13,7 +14,7 @@ import DocumentHead from 'components/data/document-head';
 import LostPasswordForm from './lost-password-form';
 
 export default localize( ( { className, translate, basePath } ) => (
-	<Main className={ className }>
+	<Main className={ classnames( 'lost-password', className ) }>
 		<PageViewTracker path={ basePath } title="Account Recovery > Lost Password" />
 		<DocumentHead title={ translate( 'Lost Password ‹ Account Recovery' ) } />
 		<LostPasswordForm />
