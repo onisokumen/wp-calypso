@@ -44,9 +44,7 @@ export class LostPasswordFormComponent extends Component {
 				<h2 className="lost-password-form__title">
 					{ translate( 'Lost your password' ) }
 				</h2>
-
 				<p>{ translate( 'Follow these simple steps to reset your account:' ) }</p>
-
 				<ol className="lost-password-form__instruction-list">
 					<li>
 						{ translate(
@@ -64,14 +62,12 @@ export class LostPasswordFormComponent extends Component {
 						) }
 					</li>
 				</ol>
-
 				<p>
 					{ translate(
 						'Want more help? We have a full {{link}}guide to resetting your password{{/link}}.',
 						{ components: { link: <a href={ support.ACCOUNT_RECOVERY } /> } }
 					) }
 				</p>
-
 				<Card>
 					<FormLabel>
 						{ translate( 'Username or Email' ) }
@@ -82,11 +78,9 @@ export class LostPasswordFormComponent extends Component {
 							value={ userLogin }
 							disabled={ isSubmitting } />
 					</FormLabel>
-
 					<a href="/account-recovery/username" className="lost-password-form__forgot-username-link">
 						{ translate( 'Forgot your username?' ) }
 					</a>
-
 					<Button
 						className="lost-password-form__submit-button"
 						onClick={ this.submitForm }
@@ -96,7 +90,6 @@ export class LostPasswordFormComponent extends Component {
 						{ translate( 'Get New Password' ) }
 					</Button>
 				</Card>
-
 			</div>
 		);
 	}
