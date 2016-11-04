@@ -3,6 +3,7 @@
  */
 import React, { Component } from 'react';
 import { localize } from 'i18n-calypso';
+import { identity } from 'lodash';
 
 /**
  * Internal dependencies
@@ -100,5 +101,9 @@ export class LostPasswordFormComponent extends Component {
 		);
 	}
 }
+
+LostPasswordFormComponent.defaultProps = {
+	translate: identity,
+};
 
 export default localize( LostPasswordFormComponent );

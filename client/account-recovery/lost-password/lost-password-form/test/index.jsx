@@ -4,7 +4,6 @@
 import React from 'react';
 import { expect } from 'chai';
 import { shallow, mount } from 'enzyme';
-import { identity } from 'lodash';
 
 /**
  * Internal dependencies
@@ -14,7 +13,7 @@ import { LostPasswordFormComponent } from '..';
 
 describe( 'LostPassword', () => {
 	it( 'should render as expected', () => {
-		const wrapper = shallow( <LostPasswordFormComponent translate={ identity } /> );
+		const wrapper = shallow( <LostPasswordFormComponent /> );
 
 		expect( wrapper ).to.have.state( 'isSubmitting' ).to.be.false;
 		expect( wrapper.find( '.lost-password-form__user-login-input' ).prop( 'disabled' ) ).to.not.be.ok;
@@ -25,7 +24,7 @@ describe( 'LostPassword', () => {
 		useFakeDom();
 
 		it( 'submit button shuold be disabled if user login is blank', function() {
-			const wrapper = mount( <LostPasswordFormComponent className="test__test" translate={ identity } /> );
+			const wrapper = mount( <LostPasswordFormComponent className="test__test" /> );
 
 			wrapper.find( '.lost-password-form__user-login-input' ).node.value = '';
 			wrapper.find( '.lost-password-form__user-login-input' ).simulate( 'change' );
@@ -34,7 +33,7 @@ describe( 'LostPassword', () => {
 		} );
 
 		it( 'should be disabled when submit button clicked', function() {
-			const wrapper = mount( <LostPasswordFormComponent className="test__test" translate={ identity } /> );
+			const wrapper = mount( <LostPasswordFormComponent className="test__test" /> );
 
 			wrapper.find( '.lost-password-form__user-login-input' ).node.value = 'test';
 			wrapper.find( '.lost-password-form__user-login-input' ).simulate( 'change' );
