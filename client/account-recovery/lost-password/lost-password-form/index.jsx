@@ -24,7 +24,7 @@ export class LostPasswordFormComponent extends Component {
 		};
 	}
 
-	onSubmit = () => {
+	submitForm = () => {
 		this.setState( { isSubmitting: true } );
 
 		//TODO: dispatch an event with userLogin and wait to here back
@@ -89,7 +89,7 @@ export class LostPasswordFormComponent extends Component {
 
 					<Button
 						className="lost-password-form__submit-button"
-						onClick={ this.onSubmit }
+						onClick={ this.submitForm }
 						disabled={ isPrimaryButtonDisabled }
 						primary
 					>
