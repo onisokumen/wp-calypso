@@ -23,6 +23,7 @@ import PluginBrowser from './plugins-browser';
 import { setDocumentHeadTitle as setTitle } from 'state/document-head/actions';
 import { renderWithReduxStore } from 'lib/react-helpers';
 import { setSection } from 'state/ui/actions';
+import { getSelectedSite } from 'state/ui/selectors';
 
 /**
  * Module variables
@@ -35,7 +36,7 @@ let lastPluginsListVisited,
 
 function renderSinglePlugin( context, siteUrl ) {
 	const pluginSlug = decodeURIComponent( context.params.plugin );
-	const site = sites.getSelectedSite();
+	const site = getSelectedSite( context.store.getState() );
 	const analyticsPageTitle = 'Plugins';
 
 	let baseAnalyticsPath = 'plugins/:plugin';
@@ -85,11 +86,12 @@ function getPathWithoutSiteSlug( context, site ) {
 
 function renderPluginList( context, basePath ) {
 	const search = context.query.s;
-	const site = sites.getSelectedSite();
+	const site = getSelectedSite( context.store.getState() );
 
 	lastPluginsListVisited = getPathWithoutSiteSlug( context, site );
 	lastPluginsQuerystring = context.querystring;
-	context.store.dispatch( setTitle( i18n.translate( 'Plugins', { textOnly: true } ) ) ); // FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+	// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+	context.store.dispatch( setTitle( i18n.translate( 'Plugins', { textOnly: true } ) ) );
 
 	renderWithReduxStore(
 		React.createElement( PluginListComponent, {
@@ -120,7 +122,7 @@ function renderPluginList( context, basePath ) {
 
 function renderPluginsBrowser( context ) {
 	const searchTerm = context.query.s;
-	let site = sites.getSelectedSite();
+	let site = getSelectedSite( context.store.getState() );
 	let { category } = context.params;
 
 	lastPluginsListVisited = getPathWithoutSiteSlug( context, site );
@@ -136,7 +138,8 @@ function renderPluginsBrowser( context ) {
 		site = { slug: context.params.siteOrCategory };
 	}
 
-	context.store.dispatch( setTitle( i18n.translate( 'Plugin Browser', { textOnly: true } ) ) ); // FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+	// FIXME: Auto-converted from the Flux setTitle action. Please use <DocumentHead> instead.
+	context.store.dispatch( setTitle( i18n.translate( 'Plugin Browser', { textOnly: true } ) ) );
 
 	const analyticsPageTitle = 'Plugin Browser' + ( category ? ': ' + category : '' );
 	analytics
@@ -157,8 +160,9 @@ function renderPluginsBrowser( context ) {
 }
 
 function renderProvisionPlugins( context ) {
-	const section = context.store.getState().ui.section;
-	const site = sites.getSelectedSite();
+	const state = context.store.getState();
+	const section = state.ui.section;
+	const site = getSelectedSite( state );
 	context.store.dispatch( setSection( Object.assign( {}, section, { secondary: false } ) ) );
 	ReactDom.unmountComponentAtNode( document.getElementById( 'secondary' ) );
 
@@ -177,7 +181,7 @@ const controller = {
 	validateFilters( filter, context, next ) {
 		const wpcomFilter = 'standard';
 		const siteUrl = route.getSiteFragment( context.path );
-		const site = sites.getSelectedSite();
+		const site = getSelectedSite( context.store.getState() );
 		const appliedFilter = ( filter ? filter : context.params.plugin ).toLowerCase();
 
 		// bail if /plugins/:site_id?
